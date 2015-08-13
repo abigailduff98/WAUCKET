@@ -20,22 +20,24 @@
 		var randfact = random(1,5);
 		var currency = 0;
 		var audio;
+		var cakeHit;
+		var h=1;
 		
 		//stuff that's only run once
 		void setup(){
 			//add all of the objects to their lists and whatever
 			for (var i = 0; i < random(20,50);i++) {
-				droplet.push(new Droplet(30,[61,126,206,255],random(5,795),random(-2000,-20),2,2));
+				droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),2*h,2*h));
 			}
 			for (var i = 0; i < random(10,25);i++) {
-				fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,795),random(-2000,-20),2,2));
+				fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),2*h,2*h));
 			}
 			
 			for (var i = 0; i < random(10,25);i++) {
-				can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,795),random(-2000,-20),2,2));
+				can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),2*h,2*h));
 			}
 			for (var i = 0; i < random(1,5);i++) {
-				toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,795),random(-2000,-20),2,2));
+				toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),2*h,2*h));
 			}
 			bucket = new Bucket (95,10,[150,150,150],400,2);
 			
@@ -77,6 +79,11 @@
 			//on the start page
 			if(gameState=="start"){
 				image(startPage,0,0);
+				if (h>=3){
+					fill(255,0,0);
+					textSize(60);
+					text("HARDMODE ACTIVATED",50,300);
+				}
 			}
 
 			//on the instructions page
@@ -454,6 +461,10 @@
 				nyan=[];
 				cake=[];
 				timer.clear();
+				}
+				if (cakeHit>=1){
+					fill(random(0,255),random(0,255),random(0,255));
+					ellipse(xPos+width/2+7,yPos,99,35);
 				}
 			}
 			
@@ -856,6 +867,7 @@
 					if(yPosition+size/2 >= bucket.yPos && yPosition+size/2 <= bucket.yPos + bucket.height){
 						yPosition+=200;
 						score+=100000;
+						cakeHit+=1;
 					}
 				}	
 			}
@@ -880,6 +892,8 @@
 			
 			if (keyCode == 16 && gameState=="start") {
 				score = 0;
+				hit = 0;
+				cakeHit = 0;
 				gameState = "instruction";
 			}	
 			
@@ -907,24 +921,25 @@
 						gameState="gameOver";
 						timer.clear();
 						};
-				},25000);
+				},23000/h);
 			}
 			
 			else if (keyCode == 16 && gameState=="gameOver") {
 				//reset
 				hit = 0;
+				cakeHit=0;
 				for (var i = 0; i < random(20,50);i++) {
-					droplet.push(new Droplet(30,[61,126,206,255],random(5,795),random(-2000,-20),2,2));
+					droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(10,25);i++) {
-					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,795),random(-2000,-20),2,2));
+					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				
 				for (var i = 0; i < random(10,25);i++) {
-					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,795),random(-2000,-20),2,2));
+					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(1,5);i++) {
-					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,795),random(-2000,-20),2,2));
+					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				gameState = "start";
 			}
@@ -932,18 +947,19 @@
 			else if (keyCode == 16 && gameState=="roundOneComplete") {
 				//reset
 				hit = 0;
+				cakeHit=0;
 				for (var i = 0; i < random(20,50);i++) {
-					droplet.push(new Droplet(30,[61,126,206,255],random(5,795),random(-2000,-20),2,2));
+					droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(10,25);i++) {
-					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,795),random(-2000,-20),2,2));
+					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				
 				for (var i = 0; i < random(10,25);i++) {
-					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,795),random(-2000,-20),2,2));
+					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(1,5);i++) {
-					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,795),random(-2000,-20),2,2));
+					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				score = 0;
 				gameState = "didja1";
@@ -980,24 +996,25 @@
 						gameState="gameOver";
 						timer.clear();
 						};
-				},24000);
+				},22000/h);
 			}
 			
 			else if (keyCode == 16 && gameState=="roundTwoComplete") {
 				//reset
-				hit = 0;
+				hit = 0
+				cakeHit=0;
 				for (var i = 0; i < random(20,50);i++) {
-					droplet.push(new Droplet(30,[61,126,206,255],random(5,795),random(-2000,-20),3,3));
+					droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),3*h,3*h));
 				}
 				for (var i = 0; i < random(10,25);i++) {
-					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,795),random(-2000,-20),3,3));
+					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),3*h,3*h));
 				}
 				
 				for (var i = 0; i < random(10,25);i++) {
-					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,795),random(-2000,-20),3,3));
+					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),3*h,3*h));
 				}
 				for (var i = 0; i < random(1,5);i++) {
-					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,795),random(-2000,-20),3,3));
+					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),3*h,3*h));
 				}
 				score = 0;
 				gameState = "didja2";
@@ -1034,7 +1051,7 @@
 						gameState="gameOver";
 						timer.clear();
 						};
-				},17000);
+				},15000/h);
 			}
 			
 			else if (keyCode == 16 && gameState=="roundThreeComplete"){
@@ -1048,17 +1065,17 @@
 			
 			else if (keyCode == 16 && gameState=="congrats"){
 				for (var i = 0; i < random(20,50);i++) {
-					droplet.push(new Droplet(30,[61,126,206,255],random(5,795),random(-2000,-20),2,2));
+					droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(10,25);i++) {
-					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,795),random(-2000,-20),2,2));
+					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				
 				for (var i = 0; i < random(10,25);i++) {
-					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,795),random(-2000,-20),2,2));
+					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				for (var i = 0; i < random(1,5);i++) {
-					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,795),random(-2000,-20),2,2));
+					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),2*h,2*h));
 				}
 				gameState = "start";
 			}
@@ -1073,7 +1090,7 @@
 				timer.pause();
 			}
 			
-			else if (keyCode == 80 && gameState=="play2") {
+			else if (keyCode == 80 && gameState=="play3") {
 				gameState = "pause3";
 				timer.pause();
 			}
@@ -1184,7 +1201,7 @@
 					nyan.push(new Nyan(83,83,random(100,700),random(100,500),random(-6,6),random(-6,6)));
 				}
 				for (var i = 0; i < random(20,50);i++) {
-					cake.push(new Cake(80,255,random(5,795),random(-2000,-20),2,2));
+					cake.push(new Cake(80,255,random(5,790),random(-2000,-20),2*h,2*h));
 				}
 			}
 			
@@ -1198,7 +1215,7 @@
 					nyan.push(new Nyan(83,83,random(100,700),random(100,500),random(-6,6),random(-6,6)));
 				}
 				for (var i = 0; i < random(20,50);i++) {
-					cake.push(new Cake(80,255,random(5,795),random(-2000,-20),2,2));
+					cake.push(new Cake(80,255,random(5,790),random(-2000,-20),2*h,2*h));
 				}
 			}
 			
@@ -1212,10 +1229,36 @@
 					nyan.push(new Nyan(83,83,random(100,700),random(100,500),random(-6,6),random(-6,6)));
 				}
 				for (var i = 0; i < random(20,50);i++) {
-					cake.push(new Cake(80,255,random(5,795),random(-2000,-20),2,2));
+					cake.push(new Cake(80,255,random(5,790),random(-2000,-20),2*h,2*h));
+				}
+			}
+			
+			else if (keyCode == 72 && gameState=="start") {
+				h=3;
+				hit = 0
+				cakeHit=0;
+				fish=[];
+				droplet=[];
+				can=[];
+				toxin=[];
+				cake=[];
+				for (var i = 0; i < random(20,50);i++) {
+					droplet.push(new Droplet(30,[61,126,206,255],random(5,790),random(-2000,-20),3*h,3*h));
+				}
+				for (var i = 0; i < random(10,25);i++) {
+					fish.push(new Fish(30,[100,110,13,255],[0,0,0],random(5,790),random(-2000,-20),3*h,3*h));
+				}
+				
+				for (var i = 0; i < random(10,25);i++) {
+					can.push(new Can(30,[255,0,0,255],[255,255,255],[155,155,155],random(5,790),random(-2000,-20),3*h,3*h));
+				}
+				for (var i = 0; i < random(1,5);i++) {
+					toxin.push(new Toxin(30,[239,228,176,255],[50,50,50],random(5,790),random(-2000,-20),3*h,3*h));
 				}
 			}
 		}
+		
+
 		
 
 		//timer function
